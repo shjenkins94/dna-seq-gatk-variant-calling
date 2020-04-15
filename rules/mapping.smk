@@ -1,15 +1,15 @@
-# rule trim_reads_se:
-#     input:
-#         unpack(get_fastq)
-#     output:
-#         temp("trimmed/{sample}-{unit}.fastq.gz")
-#     params:
-#         extra="",
-#         **config["params"]["trimmomatic"]["se"]
-#     log:
-#         "logs/trimmomatic/{sample}-{unit}.log"
-#     wrapper:
-#         "0.30.0/bio/trimmomatic/se"
+rule trim_reads_se:
+    input:
+        unpack(get_fastq)
+    output:
+        temp("trimmed/{sample}-{unit}.fastq.gz")
+    params:
+        extra="",
+        **config["params"]["trimmomatic"]["se"]
+    log:
+        "logs/trimmomatic/{sample}-{unit}.log"
+    wrapper:
+        "0.30.0/bio/trimmomatic/se"
 
 
 # rule trim_reads_pe:
