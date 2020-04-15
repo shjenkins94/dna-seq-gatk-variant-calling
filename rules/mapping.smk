@@ -1,3 +1,4 @@
+#This works!
 rule trim_reads_se:
     input:
         "data/reads/b.chr21.1.fq"
