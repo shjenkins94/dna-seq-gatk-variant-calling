@@ -4,7 +4,10 @@ include: "rules/common.smk"
 
 rule all:
     input:
-        "trimmed/B-2.fastq.gz"
+        "dedup/A-1.bam",
+        "dedup/B-1.bam",
+        "dedup/B-2.bam"
+        # "annotated/all.vcf.gz",
         # "annotated/all.vcf.gz",
         # "qc/multiqc.html",
         # "plots/depths.svg",
