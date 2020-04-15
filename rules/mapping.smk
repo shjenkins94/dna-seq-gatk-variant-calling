@@ -1,6 +1,6 @@
 rule trim_reads_se:
     input:
-        unpack(get_fastq)
+        get_fastq
     output:
         temp("trimmed/{sample}-{unit}.fastq.gz")
     params:
