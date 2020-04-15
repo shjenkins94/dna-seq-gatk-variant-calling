@@ -1,21 +1,21 @@
 import pandas as pd
-# from snakemake.utils import validate
-from snakemake.utils import min_version
+from snakemake.utils import validate
+# from snakemake.utils import min_version
 
-min_version("5.7.1")
+# min_version("5.7.1")
 
 # report: "../report/workflow.rst"
 
 # ###### Config file and sample sheets #####
 configfile: "config.yaml"
-# validate(config, schema="../schemas/config.schema.yaml")
+validate(config, schema="../schemas/config.schema.yaml")
 
 samples = pd.read_table(config["samples"]).set_index("sample", drop=False)
-# validate(samples, schema="../schemas/samples.schema.yaml")
+validate(samples, schema="../schemas/samples.schema.yaml")
 
 units = pd.read_table(config["units"], dtype=str).set_index(["sample", "unit"], drop=False)
 units.index = units.index.set_levels([i.astype(str) for i in units.index.levels])  # enforce str in index
-# validate(units, schema="../schemas/units.schema.yaml")
+validate(units, schema="../schemas/units.schema.yaml")
 
 
 # ##### Wildcard constraints #####
