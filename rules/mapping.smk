@@ -1,6 +1,6 @@
 rule trim_reads_se:
     input:
-        get_fastq
+        "data/reads/b.chr21.1.fq"
     output:
         temp("trimmed/{sample}-{unit}.fastq.gz")
     params:
