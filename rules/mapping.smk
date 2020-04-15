@@ -2,12 +2,12 @@ rule trim_reads_se:
     input:
         "data/reads/b.chr21.1.fq"
     output:
-        temp("trimmed/{sample}-{unit}.fastq.gz")
+        temp("trimmed/B-2.fastq.gz")
     params:
         extra="",
         **config["params"]["trimmomatic"]["se"]
     log:
-        "logs/trimmomatic/{sample}-{unit}.log"
+        "logs/trimmomatic/B-2.log"
     wrapper:
         "0.30.0/bio/trimmomatic/se"
 
