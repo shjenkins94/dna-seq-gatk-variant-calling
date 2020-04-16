@@ -76,7 +76,7 @@ rule recalibrate_base_qualities:
     log:
         "logs/gatk/bqsr/{sample}-{unit}.log"
     resources:
-        mem_gb=8
+        mem_gb=32
     wrapper:
         "0.27.1/bio/gatk/baserecalibrator"
 
