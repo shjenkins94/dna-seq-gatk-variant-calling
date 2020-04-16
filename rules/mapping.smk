@@ -57,6 +57,8 @@ rule mark_duplicates:
         "logs/picard/dedup/{sample}-{unit}.log"
     params:
         config["params"]["picard"]["MarkDuplicates"]
+    resources:
+        mem_gb=16
     wrapper:
         "0.26.1/bio/picard/markduplicates"
 
