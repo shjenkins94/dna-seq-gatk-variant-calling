@@ -22,6 +22,8 @@ rule call_variants:
         "logs/gatk/haplotypecaller/{sample}.{contig}.log"
     params:
         extra=get_call_variants_params
+    resources:
+        mem_gb=32
     wrapper:
         "0.27.1/bio/gatk/haplotypecaller"
 
