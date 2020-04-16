@@ -43,8 +43,6 @@ rule map_reads:
         sort="samtools",
         sort_order="coordinate"
     threads: 8
-    resources:
-        mem_gb=20
     wrapper:
         "0.27.1/bio/bwa/mem"
 
