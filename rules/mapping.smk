@@ -58,7 +58,7 @@ rule mark_duplicates:
     params:
         config["params"]["picard"]["MarkDuplicates"]
     resources:
-        mem_gb=16
+        mem_gb=8
     wrapper:
         "0.26.1/bio/picard/markduplicates"
 
@@ -72,7 +72,8 @@ rule recalibrate_base_qualities:
     output:
         bam=protected("recal/{sample}-{unit}.bam")
     params:
-        extra=get_regions_param() + config["params"]["gatk"]["BaseRecalibrator"]
+        extra=get_regions_param() + config["params"]["gatk"]["BaseRecalibrator"],
+        # java_opts="-Xmx4G"
     log:
         "logs/gatk/bqsr/{sample}-{unit}.log"
     wrapper:
