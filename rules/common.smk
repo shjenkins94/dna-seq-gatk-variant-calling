@@ -26,16 +26,17 @@ wildcard_constraints:
 
 
 # ##### Helper functions #####
-#
-# def get_fai():
-#     return config["ref"]["genome"] + ".fai"
-#
-#
-# # contigs in reference genome
-# def get_contigs():
-#     return pd.read_table(get_fai(),
-#                          header=None, usecols=[0], squeeze=True, dtype=str)
-#
+
+def get_fai():
+    return config["ref"]["genome"] + ".fai"
+
+
+# contigs in reference genome
+def get_contigs():
+    return pd.read_table(get_fai(),
+                         header=None, usecols=[0], squeeze=True, dtype=str)
+
+
 def get_fastq(wildcards):
     """Get fastq files of given sample-unit."""
     fastqs = units.loc[(wildcards.sample, wildcards.unit), ["fq1", "fq2"]].dropna()
@@ -66,41 +67,41 @@ def get_trimmed_reads(wildcards):
     return "trimmed/{sample}-{unit}.fastq.gz".format(**wildcards)
 
 
-# def get_sample_bams(wildcards):
-#     """Get all aligned reads of given sample."""
-#     return expand("recal/{sample}-{unit}.bam",
-#                   sample=wildcards.sample,
-#                   unit=units.loc[wildcards.sample].unit)
-#
-#
-# def get_regions_param(regions=config["processing"].get("restrict-regions"), default=""):
-#     if regions:
-#         params = "--intervals '{}' ".format(regions)
-#         padding = config["processing"].get("region-padding")
-#         if padding:
-#             params += "--interval-padding {}".format(padding)
-#         return params
-#     return default
-#
-#
-# def get_call_variants_params(wildcards, input):
-#     return (get_regions_param(regions=input.regions, default="--intervals {}".format(wildcards.contig)) +
-#             config["params"]["gatk"]["HaplotypeCaller"])
-#
-#
-# def get_recal_input(bai=False):
-#     # case 1: no duplicate removal
-#     f = "mapped/{sample}-{unit}.sorted.bam"
-#     if config["processing"]["remove-duplicates"]:
-#         # case 2: remove duplicates
-#         f = "dedup/{sample}-{unit}.bam"
-#     if bai:
-#         if config["processing"].get("restrict-regions"):
-#             # case 3: need an index because random access is required
-#             f += ".bai"
-#             return f
-#         else:
-#             # case 4: no index needed
-#             return []
-#     else:
-#         return f
+def get_sample_bams(wildcards):
+    """Get all aligned reads of given sample."""
+    return expand("recal/{sample}-{unit}.bam",
+                  sample=wildcards.sample,
+                  unit=units.loc[wildcards.sample].unit)
+
+
+def get_regions_param(regions=config["processing"].get("restrict-regions"), default=""):
+    if regions:
+        params = "--intervals '{}' ".format(regions)
+        padding = config["processing"].get("region-padding")
+        if padding:
+            params += "--interval-padding {}".format(padding)
+        return params
+    return default
+
+
+def get_call_variants_params(wildcards, input):
+    return (get_regions_param(regions=input.regions, default="--intervals {}".format(wildcards.contig)) +
+            config["params"]["gatk"]["HaplotypeCaller"])
+
+
+def get_recal_input(bai=False):
+    # case 1: no duplicate removal
+    f = "mapped/{sample}-{unit}.sorted.bam"
+    if config["processing"]["remove-duplicates"]:
+        # case 2: remove duplicates
+        f = "dedup/{sample}-{unit}.bam"
+    if bai:
+        if config["processing"].get("restrict-regions"):
+            # case 3: need an index because random access is required
+            f += ".bai"
+            return f
+        else:
+            # case 4: no index needed
+            return []
+    else:
+        return f
