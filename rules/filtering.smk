@@ -13,6 +13,8 @@ rule select_calls:
         extra=get_vartype_arg
     log:
         "logs/gatk/selectvariants/{vartype}.log"
+    resources:
+        mem_gb=32
     wrapper:
         "0.27.1/bio/gatk/selectvariants"
 
@@ -33,6 +35,8 @@ rule hard_filter_calls:
         filters=get_filter
     log:
         "logs/gatk/variantfiltration/{vartype}.log"
+    resources:
+        mem_gb=32
     wrapper:
         "0.27.1/bio/gatk/variantfiltration"
 
@@ -46,6 +50,8 @@ rule recalibrate_calls:
         extra=config["params"]["gatk"]["VariantRecalibrator"]
     log:
         "logs/gatk/variantrecalibrator/{vartype}.log"
+    resources:
+        mem_gb=32
     wrapper:
         "0.27.1/bio/gatk/variantrecalibrator"
 

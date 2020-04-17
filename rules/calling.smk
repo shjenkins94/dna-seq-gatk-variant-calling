@@ -36,6 +36,8 @@ rule combine_calls:
         gvcf="called/all.{contig}.g.vcf.gz"
     log:
         "logs/gatk/combinegvcfs.{contig}.log"
+    resources:
+        mem_gb=32
     wrapper:
         "0.27.1/bio/gatk/combinegvcfs"
 
@@ -50,6 +52,8 @@ rule genotype_variants:
         extra=config["params"]["gatk"]["GenotypeGVCFs"]
     log:
         "logs/gatk/genotypegvcfs.{contig}.log"
+    resources:
+        mem_gb=32
     wrapper:
         "0.27.1/bio/gatk/genotypegvcfs"
 
